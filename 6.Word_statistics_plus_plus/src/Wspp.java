@@ -32,11 +32,13 @@ public class Wspp {
                 }
                 scanner.close();
             } catch (IOException e) {
-                System.err.println("File not found!");
-            }
+                System.err.println("An error occurred while trying to read the input stream.");
+                System.err.println(e.getMessage());
+            }   
         } catch (FileNotFoundException e) {
-            System.err.println("An error occurred while trying to read the input stream.");
-            System.err.println(e.getMessage());
+            System.err.println("File not found!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Forgot to specify the name of the input file!");
         }
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
@@ -62,6 +64,8 @@ public class Wspp {
             }
         } catch (FileNotFoundException e) {
             System.err.println("File for writing cannot be created");
+        }  catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Forgot to specify the name of the output file!");
         }
     }
 }
