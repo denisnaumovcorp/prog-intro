@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class WordStatWordsMiddle {
-
-
     public static void main(String[] args) {
         class Word implements MyScanner.Suit {
             @Override
