@@ -148,7 +148,18 @@ public class MyScanner {
     }
 
     public boolean hasNextInt() throws IOException {
-        return hasNext(DEFAULT_INT);
+        int index = currentIndex;
+        if (hasNext(DEFAULT_INT)) {
+            try {
+                Integer.parseInt(next(DEFAULT_INT))
+            catch (NumberFormatException e) {
+                currentIndex = index;
+                return false;
+            }
+            currentIndex = index;
+            startIndex = index;
+            return true;
+        }
     }
 
     public String next(Suit suit) throws IOException, NoSuchElementException {
@@ -183,7 +194,7 @@ public class MyScanner {
         return next(DEFAULT);
     }
 
-    public int nextInt() throws IOException {
+    public int nextInt() throws IOException, NumberFormatException {
         return Integer.parseInt(next(DEFAULT_INT));
     }
     

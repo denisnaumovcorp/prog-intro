@@ -15,24 +15,6 @@ public class MyScanner {
     private int startIndex;
     private int bufferSize;
 
-    private void ensureOpen() throws IllegalStateException {
-        if (closed) {
-            throw new IllegalStateException("You can't use scanner, it's already closed!");
-        }
-    }
-
-    private boolean isLineSeparator(int index) throws IOException {
-        for (int i = 0; i < System.lineSeparator().length(); i++) {
-            if (index == bufferSize && !eof) {
-                getInput();
-            } else if (index == bufferSize || System.lineSeparator().charAt(i) != buffer[index]) {
-                return false;
-            }
-            index++;
-        }
-        return true;
-    }
-
     public interface Suit {
         boolean isSuitableSymbol(char symbol);
     }
@@ -49,6 +31,24 @@ public class MyScanner {
         public boolean isSuitableSymbol(char symbol) {
             return Character.isDigit(symbol) || symbol == '-';
         }
+    }
+
+    private void ensureOpen() throws IllegalStateException {
+        if (closed) {
+            throw new IllegalStateException("You can't use scanner, it's already closed!");
+        }
+    }
+
+    private boolean isLineSeparator(int index) throws IOException {
+        for (int i = 0; i < System.lineSeparator().length(); i++) {
+            if (index == bufferSize && !eof) {
+                getInput();
+            } else if (index == bufferSize || System.lineSeparator().charAt(i) != buffer[index]) {
+                return false;
+            }
+            index++;
+        }
+        return true;
     }
 
     public MyScanner(String string) {

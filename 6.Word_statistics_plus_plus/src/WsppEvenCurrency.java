@@ -12,31 +12,29 @@ public class WsppEvenCurrency {
         }
 
         final MyScanner.Suit WORD_MONEY = new WordMoney();
-        Map<String, ArrayList<Integer>> allWords = new LinkedHashMap<>();
+        Map<String, IntList> allWords = new LinkedHashMap<>();
+        int currentLine = 0;
         try {
             MyScanner scanner = new MyScanner(new FileInputStream(args[0]), StandardCharsets.UTF_8);
             try {
                 while (scanner.hasNextLine()) {
                     int counter = 0;
+                    currentLine += 1;
                     while (scanner.hasNextInLine(WORD_MONEY)) {
                         String word = scanner.next(WORD_MONEY).toLowerCase();
                         counter++;
-                        if (!allWords.containsKey(word)) {
-                            ArrayList<Integer> tList = new ArrayList<>();
-                            tList.add(1);
-                            tList.add(1);
-                            allWords.put(word, tList);
+                        IntList cWord = allWords.getOrDefault(word, new IntList(new int[] {0, currentLine, 0}, 3));
+                        allWords.put(word, cWord);
+                        cWord.set(2, cWord.get(2) + 1);
+                        if (cWord.get(1) != currentLine) {
+                            cWord.set(1, currentLine);
+                            cWord.set(0, 1);
                         } else {
-                            ArrayList<Integer> cWord = allWords.get(word);
-                            cWord.set(1, cWord.get(1) + 1);
                             cWord.set(0, cWord.getFirst() + 1);
-                            if (cWord.get(0) % 2 == 0) {
-                                cWord.add(counter);
-                            }
                         }
-                    }
-                    for (Map.Entry<String, ArrayList<Integer>> word : allWords.entrySet()) {
-                        word.getValue().set(0, 0);
+                        if (cWord.get(0) % 2 == 0) {
+                            cWord.add(counter);
+                        }
                     }
                     scanner.goToNextLine();
                 }
@@ -56,10 +54,10 @@ public class WsppEvenCurrency {
                     new FileOutputStream(args[1]), StandardCharsets.UTF_8
             ));
             try {
-                for (Map.Entry<String, ArrayList<Integer>> word : allWords.entrySet()) {
-                    ArrayList<Integer> tList = word.getValue();
+                for (Map.Entry<String, IntList> word : allWords.entrySet()) {
+                    IntList tList = word.getValue();
                     writer.write(word.getKey() + " ");
-                    for (int i = 1; i < tList.size(); i++) {
+                    for (int i = 2; i < tList.size(); i++) {
                         if (i < tList.size() - 1) {
                             writer.write(tList.get(i) + " ");
                         } else {

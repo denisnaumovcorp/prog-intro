@@ -2,8 +2,10 @@ package markup;
 
 import java.util.List;
 
-public class Emphasis extends Formatting {
+public class Emphasis extends Paragraph {
     String markSymbols = "*";
+    String docStartTeg = "<emphasis>";
+    String docEndTeg = "</emphasis>";
 
     public Emphasis(List<Mark> content) {
         super(content);
