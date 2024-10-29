@@ -1,9 +1,7 @@
 package markup;
 
-public class Text implements Mark {
+public class Text implements MarkupElements {
     private final String text;
-    String docStartTeg = "<emphasis role='strikeout'>";
-    String docEndTeg = "</emphasis>";
 
     public Text(String text) {
         this.text = text;
@@ -11,6 +9,11 @@ public class Text implements Mark {
 
     @Override
     public void toMarkdown(StringBuilder strBuilder) {
+        strBuilder.append(text);
+    }
+
+    @Override
+    public void toDocBook(StringBuilder strBuilder) {
         strBuilder.append(text);
     }
 }

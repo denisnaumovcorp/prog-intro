@@ -25,22 +25,27 @@ public class WordStatWordsMiddle {
                     }
                     allWords.merge(word, 1, Integer::sum);
                 }
-                scanner.close();
-                try {
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                            new FileOutputStream(args[1]), StandardCharsets.UTF_8
-                    ));
-                    for (Map.Entry<String, Integer> word : allWords.entrySet()) {
-                        writer.write(word.getKey() + " " + word.getValue());
-                        writer.newLine();
-                    }
-                    writer.close();
-                } catch (FileNotFoundException e) {
-                    System.out.println("File for writing cannot be created");
-                }
             } catch (IOException e) {
                 System.out.println("Error reading input file");
                 System.err.println(e.getMessage());
+            }
+            try {
+                scanner.close();
+            } catch {
+                System.err.println("An error occured while trying to close file.");
+                System.err.println(e.getMessage());
+            }
+            try {
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(args[1]), StandardCharsets.UTF_8
+                ));
+                for (Map.Entry<String, Integer> word : allWords.entrySet()) {
+                    writer.write(word.getKey() + " " + word.getValue());
+                    writer.newLine();
+                }
+                writer.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File for writing cannot be created");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");

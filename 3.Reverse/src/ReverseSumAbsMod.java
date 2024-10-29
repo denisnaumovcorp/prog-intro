@@ -34,9 +34,14 @@ public class ReverseSumAbsMod {
                 scanner.goToNextLine();
                 counter++;
             }
-            scanner.close();
         } catch (IOException e) {
             System.err.println("An error occurred while trying to read the input stream.");
+            System.err.println(e.getMessage());
+        }
+        try {
+            scanner.close();
+        } catch (IOException e) {
+            System.err.println("An error occured while trying to close file.");
             System.err.println(e.getMessage());
         }
         numbersArr = Arrays.copyOf(numbersArr, counter);

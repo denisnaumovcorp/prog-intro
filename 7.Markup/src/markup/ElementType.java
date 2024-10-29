@@ -2,30 +2,10 @@ package markup;
 
 import java.util.List;
 
-public class Paragraph implements IsList, DocBook, Mark {
+public abstract class ElementType implements MarkupElements {
     private final List<MarkupElements> elements;
-    private static final String docStartTegPara = "<para>";
-    private static final String docEndTegPara = "</para>";
-    
-    public Paragraph(List<MarkupElements> elements) {
+    public ElementType(List<MarkupElements> elements) {
         this.elements = elements;
-    }
-
-
-    @Override
-    public void toMarkdown(StringBuilder strBuilder) {
-        for (MarkupElements element : elements) {
-            element.toMarkdown(strBuilder);
-        }
-    }
-
-    @Override
-    public void toDocBook(StringBuilder strBuilder) {
-        strBuilder.append(docStartTegPara);
-        for (MarkupElements element : elements) {
-            element.toDocBook(strBuilder);
-        }
-        strBuilder.append(docEndTegPara);
     }
 
     protected void insertFormattingMark(StringBuilder strBuilder, String markSymbols) {
@@ -43,5 +23,4 @@ public class Paragraph implements IsList, DocBook, Mark {
         }
         strBuilder.append(docEndTeg);
     }
-
 }

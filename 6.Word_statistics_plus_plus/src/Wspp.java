@@ -30,15 +30,18 @@ public class Wspp {
                         allWords.get(word).add(counter);
                     }
                 }
-                scanner.close();
             } catch (IOException e) {
                 System.err.println("An error occurred while trying to read the input stream.");
                 System.err.println(e.getMessage());
-            }   
+            }  
+            scanner.close(); 
         } catch (FileNotFoundException e) {
             System.err.println("File not found!");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Forgot to specify the name of the input file!");
+        } catch (IOException e) {
+            System.err.println("An error occured while trying to close file.");
+            System.err.println(e.getMessage());
         }
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(

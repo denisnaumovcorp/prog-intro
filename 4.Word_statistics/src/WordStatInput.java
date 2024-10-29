@@ -19,7 +19,6 @@ public class WordStatInput {
                             word.append(line.charAt(i));
                             i++;
                         }
-
                         if (!word.isEmpty()) {
                             tWord = word.toString().toLowerCase();
                             if (allWords.containsKey(tWord)) {
