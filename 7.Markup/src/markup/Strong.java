@@ -3,21 +3,20 @@ package markup;
 import java.util.List;
 
 public class Strong extends ElementType {
-    private static final String markSymbols = "__";
-    private static final String docStartTeg = "<emphasis role='bold'>";
-    private static final String docEndTeg = "</emphasis>";
+    private static final String MARK_SYMBOLS = "__";
+    private static final String DOC_ROLE = "bold";
 
-    public Strong(List<MarkupElements> content) {
-        super(content);
+    public Strong(List<MarkupElements> elements) {
+        super(elements);
     }
 
     @Override
-    public void toMarkdown(StringBuilder strBuilder) {
-        super.insertFormattingMark(strBuilder, markSymbols);
+    public String getDocBookRole() {
+        return this.DOC_ROLE;
     }
 
     @Override
-    public void toDocBook(StringBuilder strBuilder) {
-        super.insertFormattingDoc(strBuilder, docStartTeg, docEndTeg);
+    public String getMarkDownSymbols() {
+        return this.MARK_SYMBOLS;
     }
 }

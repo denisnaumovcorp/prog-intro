@@ -4,23 +4,44 @@ import java.util.List;
 
 public abstract class ElementType implements MarkupElements {
     private final List<MarkupElements> elements;
+
     public ElementType(List<MarkupElements> elements) {
         this.elements = elements;
     }
 
-    protected void insertFormattingMark(StringBuilder strBuilder, String markSymbols) {
-        strBuilder.append(markSymbols);
+    public abstract String getMarkDownSymbols();
+    public abstract String getDocBookRole();
+
+
+    protected void insertFormattingMark(StringBuilder strBuilder) {
+        strBuilder.append(getMarkDownSymbols());
         for (MarkupElements element : elements) {
             element.toMarkdown(strBuilder);
         }
-        strBuilder.append(markSymbols);
+        strBuilder.append(getMarkDownSymbols());
     }
 
-    protected void insertFormattingDoc(StringBuilder strBuilder, String docStartTeg, String docEndTeg) {
-        strBuilder.append(docStartTeg);
+    protected void insertFormattingDoc(StringBuilder strBuilder) {
+        strBuilder.append("<emphasis");
+        if (getDocBookRole() != "") {
+            strBuilder.append(" role='").append(getDocBookRole()).append("'>");
+        } else {
+            strBuilder.append(">");
+        }
         for (MarkupElements element : elements) {
             element.toDocBook(strBuilder);
         }
-        strBuilder.append(docEndTeg);
+        strBuilder.append("</emphasis>");
     }
+
+    @Override
+    public void toMarkdown(StringBuilder strBuilder) {
+        insertFormattingMark(strBuilder);
+    }
+
+    @Override
+    public void toDocBook(StringBuilder strBuilder) {
+        insertFormattingDoc(strBuilder);
+    }
+
 }

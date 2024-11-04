@@ -3,21 +3,21 @@ package markup;
 import java.util.List;
 
 public class Strikeout extends ElementType {
-    private static final String markSymbols = "~";
-    private static final String docStartTeg = "<emphasis role='strikeout'>";
-    private static final String docEndTeg = "</emphasis>";
+    private static final String MARK_SYMBOLS = "~";
+    private static final String DOC_ROLE = "strikeout";
 
-    public Strikeout(List<MarkupElements> content) {
-        super(content);
+    public Strikeout(List<MarkupElements> elements) {
+        super(elements);
     }
 
     @Override
-    public void toMarkdown(StringBuilder strBuilder) {
-        super.insertFormattingMark(strBuilder, markSymbols);
+    public String getDocBookRole() {
+        return this.DOC_ROLE;
     }
-
+    
     @Override
-    public void toDocBook(StringBuilder strBuilder) {
-        super.insertFormattingDoc(strBuilder, docStartTeg, docEndTeg);
+    public String getMarkDownSymbols() {
+        return this.MARK_SYMBOLS;
     }
 }
+
