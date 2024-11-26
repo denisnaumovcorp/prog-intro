@@ -107,14 +107,20 @@ public class MNKGame {
         boolean drawOfferedThisTurn = false;
 
         while (true) {
-            System.out.println("Player " + currentPlayer.name + ", enter your move (row col) or a command:");
+            System.out.print("Player ");
+            System.out.print(currentPlayer.name);
+            System.out.println(", enter your move (row col) or a command:");
             System.out.println("Commands: 'stalemate' (offer stalemate), 'surrender' (give up)");
             String input = scanner.next();
             if (input.equals("surrender"))
             {
-                System.out.println("Player " + currentPlayer.name + " surrenders!");
+                System.out.print("Player ");
+                System.out.print(currentPlayer.name);
+                System.out.println(" surrenders!");
                 currentPlayer = swapPlayers(currentPlayer, firstPlayer, secondPlayer);
-                System.out.println("Player " + currentPlayer.name + " wins!");
+                System.out.print("Player ");
+                System.out.print(currentPlayer.name);
+                System.out.println(" wins!");
                 return currentPlayer.name;
             }
             if (input.equals("stalemate")) {
@@ -124,14 +130,17 @@ public class MNKGame {
                 }
 
                 Player otherPlayer = swapPlayers(currentPlayer, firstPlayer, secondPlayer);
-                System.out.println("Player " + otherPlayer.name + ", do you accept the stalemate? (yes/no)");
+                System.out.print("Player ");
+                System.out.print(otherPlayer.name);
+                System.out.println(", do you accept the stalemate? (yes/no)");
                 String response = scanner.next();
-
                 if (response.equalsIgnoreCase("yes")) {
                     System.out.println("The game ends in a stalemate!");
                     return "stalemate";
                 } else {
-                    System.out.println("Stalemate offer declined. Player " + currentPlayer.name + ", make your move.");
+                    System.out.print("Stalemate offer declined. Player ");
+                    System.out.print(currentPlayer.name);
+                    System.out.println(", make your move.");
                     drawOfferedThisTurn = true;
                     continue;
                 }
@@ -140,14 +149,18 @@ public class MNKGame {
             row = Integer.parseInt(input);
             col = scanner.nextInt();
             while (row - 1 < 0 || row - 1 >= board.m|| col - 1 < 0 || col - 1 >= board.n || board.board[row - 1][col - 1] != '·') {
-                System.out.println("Player " + currentPlayer.name + ", you make a mistake, enter your move again (row col):");
+                System.out.print("Player ");
+                System.out.print(currentPlayer.name);
+                System.out.println(", you make a mistake, enter your move again (row col):");
                 row = scanner.nextInt();
                 col = scanner.nextInt();
             }
             if (currentPlayer.makeMove(row - 1, col - 1, board)) {
                 printBoard(board);
                 if (board.checkWin(row - 1, col - 1, currentPlayer.sign)) {
-                    System.out.println("Player " + currentPlayer.name + " win!");
+                    System.out.print("Player ");
+                    System.out.print(currentPlayer.name);
+                    System.out.println(" win!");
                     return currentPlayer.name;
                 } else if (board.checkEnd()) {
                     System.out.println("Stalemate!");
@@ -156,7 +169,9 @@ public class MNKGame {
                 currentPlayer = swapPlayers(currentPlayer, firstPlayer, secondPlayer);
             } else {
                 currentPlayer = swapPlayers(currentPlayer, firstPlayer, secondPlayer);
-                System.out.println("Player " + currentPlayer.name + " win!");
+                System.out.print("Player ");
+                System.out.print(currentPlayer.name);
+                System.out.println(" win!");
                 return currentPlayer.name;
             }
         }
@@ -174,3 +189,4 @@ public class MNKGame {
         tournament.startTournament(scanner);
     }
 }
+
